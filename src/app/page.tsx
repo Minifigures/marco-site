@@ -89,7 +89,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-bg-primary/80 via-bg-primary/40 to-transparent" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-bg-primary" />
 
-                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-[10%] lg:px-[12%]">
+                <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16">
                     {/* Greeting */}
                     <motion.p
                         initial={{ opacity: 0, x: -20 }}
@@ -221,13 +221,13 @@ export default function HomePage() {
             </div>
 
             {/* ======================== SECTION GRID ======================== */}
-            <section className="py-32 px-6">
+            <section className="py-20 px-6">
                 <div className="max-w-[1400px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="mb-16"
+                        className="mb-10"
                     >
                         <motion.p
                             variants={fadeUp}
@@ -239,7 +239,7 @@ export default function HomePage() {
                         <motion.h2
                             variants={fadeUp}
                             custom={1}
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold font-mono tracking-tight"
+                            className="text-3xl md:text-4xl lg:text-5xl font-bold font-mono tracking-tight"
                         >
                             Navigate My{" "}
                             <span className="text-gradient">System</span>
@@ -257,13 +257,16 @@ export default function HomePage() {
                                 <TiltCard>
                                     <Link
                                         href={section.href}
-                                        className="group block p-8 rounded-2xl bg-bg-card/80 backdrop-blur-sm border border-border-subtle hover:border-border-accent transition-all duration-300 hover:shadow-[var(--glow-cyan)] h-full"
+                                        className="group block p-6 rounded-2xl bg-bg-card/80 backdrop-blur-sm border border-border-subtle hover:border-border-accent transition-all duration-300 hover:shadow-[var(--glow-cyan)] h-full relative overflow-hidden"
                                     >
-                                        <div className="flex items-start justify-between mb-5">
-                                            <span className="text-3xl">{section.icon}</span>
-                                            <FaArrowRight className="text-text-muted group-hover:text-accent-cyan group-hover:translate-x-1 transition-all" />
+                                        <span className="absolute top-3 right-4 font-mono text-[10px] text-text-muted/30 group-hover:text-accent-cyan/20 transition-colors">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <div className="flex items-start justify-between mb-4">
+                                            <span className="text-2xl">{section.icon}</span>
+                                            <FaArrowRight className="text-text-muted group-hover:text-accent-cyan group-hover:translate-x-1 transition-all text-sm" />
                                         </div>
-                                        <h3 className="font-mono text-sm font-semibold text-text-primary mb-2 group-hover:text-accent-cyan transition-colors">
+                                        <h3 className="font-mono text-sm font-semibold text-text-primary mb-1.5 group-hover:text-accent-cyan transition-colors">
                                             {section.label}
                                         </h3>
                                         <p className="text-text-secondary text-sm leading-relaxed">
@@ -278,7 +281,7 @@ export default function HomePage() {
             </section>
 
             {/* ======================== FOR RECRUITERS ======================== */}
-            <section className="py-32 px-6 bg-bg-secondary/30">
+            <section className="py-20 px-6 bg-bg-secondary/30">
                 <div className="max-w-[1400px] mx-auto text-center">
                     <motion.div
                         initial="hidden"
@@ -295,7 +298,7 @@ export default function HomePage() {
                         <motion.h2
                             variants={fadeUp}
                             custom={1}
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 font-mono tracking-tight"
+                            className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-mono tracking-tight"
                         >
                             Let&apos;s Build Something{" "}
                             <span className="text-gradient">Exceptional</span>

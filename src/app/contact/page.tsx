@@ -53,14 +53,14 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen py-32 px-6">
+        <div className="min-h-screen py-24 px-6">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="CONTACT.SH"
                     description="Have a project idea, job opportunity, or just want to connect? Drop me a message."
                 />
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 max-w-5xl mx-auto">
                     {/* Contact Info */}
                     <motion.div
                         initial="hidden"

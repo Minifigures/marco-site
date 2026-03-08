@@ -23,7 +23,7 @@ export default function ProjectsPage() {
             : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <div className="min-h-screen py-32 px-6">
+        <div className="min-h-screen py-24 px-6">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="PROJECTS.DIR"
@@ -36,7 +36,7 @@ export default function ProjectsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    className="flex flex-wrap gap-2 mb-12"
+                    className="flex flex-wrap gap-2 mb-8"
                 >
                     {projectCategories.map((cat) => (
                         <button

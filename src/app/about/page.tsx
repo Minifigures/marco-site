@@ -37,7 +37,7 @@ export default function AboutPage() {
     };
 
     return (
-        <div className="min-h-screen py-32 px-6">
+        <div className="min-h-screen py-24 px-6">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="ABOUT.MD"
@@ -54,19 +54,19 @@ export default function AboutPage() {
                     {/* Location Card */}
                     <motion.div variants={fadeUp} custom={0}>
                         <TiltCard className="h-full">
-                            <div className="glass-card p-8 h-full">
+                            <div className="glass-card p-6 h-full">
                                 <div className="flex items-center gap-2 mb-4">
                                     <FaMapMarkerAlt className="text-accent-cyan" />
                                     <span className="font-mono text-xs text-text-muted">
                                         LOCATION
                                     </span>
                                 </div>
-                                <p className="text-text-primary font-semibold text-lg">
+                                <p className="text-text-primary font-semibold text-lg mb-1">
                                     {personal.location}
                                 </p>
-                                <div className="mt-5 h-32 rounded-xl bg-bg-tertiary border border-border-subtle flex items-center justify-center overflow-hidden">
-                                    <div className="text-4xl">\uD83C\uDF0D</div>
-                                </div>
+                                <p className="text-text-muted font-mono text-xs">
+                                    UTC-5 &middot; EST
+                                </p>
                             </div>
                         </TiltCard>
                     </motion.div>
@@ -74,7 +74,7 @@ export default function AboutPage() {
                     {/* Email Card */}
                     <motion.div variants={fadeUp} custom={1}>
                         <TiltCard className="h-full">
-                            <div className="glass-card p-8 h-full">
+                            <div className="glass-card p-6 h-full">
                                 <div className="flex items-center gap-2 mb-4">
                                     <FaEnvelope className="text-accent-cyan" />
                                     <span className="font-mono text-xs text-text-muted">
@@ -98,7 +98,7 @@ export default function AboutPage() {
                     {/* Languages Card */}
                     <motion.div variants={fadeUp} custom={2}>
                         <TiltCard className="h-full">
-                            <div className="glass-card p-8 h-full">
+                            <div className="glass-card p-6 h-full">
                                 <div className="flex items-center gap-2 mb-4">
                                     <FaLanguage className="text-accent-cyan" />
                                     <span className="font-mono text-xs text-text-muted">
@@ -125,7 +125,7 @@ export default function AboutPage() {
                     {/* Tech Stack Card */}
                     <motion.div variants={fadeUp} custom={3} className="lg:col-span-2">
                         <TiltCard className="h-full">
-                            <div className="glass-card p-8 h-full">
+                            <div className="glass-card p-6 h-full">
                                 <div className="flex items-center gap-2 mb-5">
                                     <span className="text-accent-cyan">\u26A1</span>
                                     <span className="font-mono text-xs text-text-muted">
@@ -146,7 +146,7 @@ export default function AboutPage() {
                     {/* Stats Card */}
                     <motion.div variants={fadeUp} custom={4}>
                         <TiltCard className="h-full">
-                            <div className="glass-card p-8 h-full">
+                            <div className="glass-card p-6 h-full">
                                 <div className="flex items-center gap-2 mb-5">
                                     <span className="text-accent-cyan">\uD83D\uDCCA</span>
                                     <span className="font-mono text-xs text-text-muted">
@@ -185,7 +185,7 @@ export default function AboutPage() {
                         custom={5}
                         className="md:col-span-2 lg:col-span-3"
                     >
-                        <div className="glass-card p-8">
+                        <div className="glass-card p-6">
                             <div className="flex items-center gap-2 mb-5">
                                 <span className="text-accent-cyan">\uD83C\uDFAE</span>
                                 <span className="font-mono text-xs text-text-muted">
@@ -212,7 +212,7 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mt-20"
+                    className="mt-12"
                 >
                     <div className="flex items-center gap-2 mb-8">
                         <FaGraduationCap className="text-accent-cyan" />
@@ -221,7 +221,7 @@ export default function AboutPage() {
                         </span>
                     </div>
                     <TiltCard>
-                        <div className="glass-card p-10 flex flex-col md:flex-row items-center gap-8">
+                        <div className="glass-card p-8 flex flex-col md:flex-row items-center gap-6">
                             <div className="w-20 h-20 rounded-2xl bg-bg-tertiary border border-border-subtle flex items-center justify-center text-3xl shrink-0">
                                 \uD83C\uDF93
                             </div>

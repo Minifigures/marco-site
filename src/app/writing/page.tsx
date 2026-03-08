@@ -24,7 +24,7 @@ export default function WritingPage() {
     });
 
     return (
-        <div className="min-h-screen py-32 px-6">
+        <div className="min-h-screen py-24 px-6">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="WRITING.DOC"
@@ -37,7 +37,7 @@ export default function WritingPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    className="mb-12 space-y-5"
+                    className="mb-8 space-y-4"
                 >
                     <div className="relative">
                         <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
@@ -220,12 +220,6 @@ export default function WritingPage() {
                                     <p className="text-text-secondary leading-relaxed">
                                         {selectedWriting.excerpt}
                                     </p>
-                                    <div className="mt-10 p-8 rounded-xl border border-border-subtle bg-bg-card text-center">
-                                        <p className="font-mono text-sm text-text-muted">
-                                            Full document coming soon. Connect the writing
-                                            sample markdown or Google Docs embed here.
-                                        </p>
-                                    </div>
                                 </div>
 
                                 <div className="flex flex-wrap gap-2 mt-8">

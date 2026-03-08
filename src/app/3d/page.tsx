@@ -21,7 +21,7 @@ export default function ThreeDPage() {
     const router = useRouter();
 
     return (
-        <div className="min-h-screen -mt-16 relative">
+        <div className="h-screen relative">
             {/* Back button */}
             <motion.div
                 initial={{ opacity: 0, x: -20 }}
