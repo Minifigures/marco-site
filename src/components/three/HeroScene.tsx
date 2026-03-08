@@ -1,24 +1,149 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Stars } from "@react-three/drei";
+import { Text, Float, Stars, Environment } from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-function FloatingParticles({ count = 50 }: { count?: number }) {
+function RotatingMarco() {
+    const groupRef = useRef<THREE.Group>(null);
+    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            setMouse({
+                x: (e.clientX / window.innerWidth - 0.5) * 2,
+                y: -(e.clientY / window.innerHeight - 0.5) * 2,
+            });
+        };
+        window.addEventListener("mousemove", handleMouseMove);
+        return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, []);
+
+    useFrame(({ clock }) => {
+        if (!groupRef.current) return;
+        const t = clock.getElapsedTime();
+        groupRef.current.rotation.y = t * 0.15 + mouse.x * 0.3;
+        groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.05 + mouse.y * 0.15;
+    });
+
+    return (
+        <Float speed={1.5} rotationIntensity={0.15} floatIntensity={0.4}>
+            <group ref={groupRef}>
+                {/* Main metallic MARCO text */}
+                <Text
+                    fontSize={2.8}
+                    letterSpacing={0.15}
+                    textAlign="center"
+                    anchorX="center"
+                    anchorY="middle"
+                    characters="MARCO"
+                >
+                    <meshStandardMaterial
+                        color="#d0d0e0"
+                        metalness={1}
+                        roughness={0.08}
+                        envMapIntensity={2.5}
+                    />
+                    MARCO
+                </Text>
+                {/* Glow layer */}
+                <Text
+                    fontSize={2.85}
+                    letterSpacing={0.15}
+                    textAlign="center"
+                    anchorX="center"
+                    anchorY="middle"
+                    characters="MARCO"
+                >
+                    <meshBasicMaterial color="#00d4ff" transparent opacity={0.08} />
+                    MARCO
+                </Text>
+                {/* Purple reflection layer */}
+                <Text
+                    fontSize={2.82}
+                    letterSpacing={0.15}
+                    textAlign="center"
+                    anchorX="center"
+                    anchorY="middle"
+                    characters="MARCO"
+                    position={[0, 0, -0.02]}
+                >
+                    <meshBasicMaterial color="#7c3aed" transparent opacity={0.06} />
+                    MARCO
+                </Text>
+            </group>
+        </Float>
+    );
+}
+
+function OrbitingKeywords() {
+    const groupRef = useRef<THREE.Group>(null);
+    const keywords = useMemo(
+        () => [
+            "const", "def", "async", "import", "return",
+            "class", "func", "let", "yield", "export",
+            "await", "from", "type", "if", "for",
+        ],
+        []
+    );
+
+    useFrame(({ clock }) => {
+        if (groupRef.current) {
+            groupRef.current.rotation.y = clock.getElapsedTime() * 0.06;
+        }
+    });
+
+    return (
+        <group ref={groupRef}>
+            {keywords.map((word, i) => {
+                const angle = (i / keywords.length) * Math.PI * 2;
+                const radius = 5.5 + (i % 3) * 1.2;
+                const y = Math.sin(i * 1.3) * 2.5;
+                const colors = ["#00d4ff", "#22c55e", "#7c3aed"];
+                return (
+                    <Float key={word} speed={0.8 + i * 0.08} floatIntensity={0.3}>
+                        <Text
+                            position={[
+                                Math.cos(angle) * radius,
+                                y,
+                                Math.sin(angle) * radius,
+                            ]}
+                            fontSize={0.28}
+                            anchorX="center"
+                            anchorY="middle"
+                            characters={word}
+                        >
+                            <meshBasicMaterial
+                                color={colors[i % 3]}
+                                transparent
+                                opacity={0.45}
+                            />
+                            {word}
+                        </Text>
+                    </Float>
+                );
+            })}
+        </group>
+    );
+}
+
+function FloatingParticles({ count = 35 }: { count?: number }) {
     const mesh = useRef<THREE.InstancedMesh>(null);
     const dummy = useMemo(() => new THREE.Object3D(), []);
 
     const particles = useMemo(() => {
         const temp = [];
         for (let i = 0; i < count; i++) {
-            const t = Math.random() * 100;
-            const factor = 20 + Math.random() * 100;
-            const speed = 0.002 + Math.random() / 200;
-            const xFactor = -30 + Math.random() * 60;
-            const yFactor = -15 + Math.random() * 30;
-            const zFactor = -15 + Math.random() * 30;
-            temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
+            temp.push({
+                t: Math.random() * 100,
+                factor: 20 + Math.random() * 100,
+                speed: 0.002 + Math.random() / 200,
+                xFactor: -30 + Math.random() * 60,
+                yFactor: -15 + Math.random() * 30,
+                zFactor: -15 + Math.random() * 30,
+            });
         }
         return temp;
     }, [count]);
@@ -29,131 +154,69 @@ function FloatingParticles({ count = 50 }: { count?: number }) {
             const { factor, speed, xFactor, yFactor, zFactor } = particle;
             particle.t += speed;
             const t = particle.t;
-            const a = Math.cos(t) + Math.sin(t * 1) / 10;
-            const b = Math.sin(t) + Math.cos(t * 2) / 10;
-
             dummy.position.set(
-                xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
+                xFactor + Math.cos((t / 10) * factor) + (Math.sin(t) * factor) / 10,
                 yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
                 zFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 3) * factor) / 10
             );
-            dummy.scale.setScalar(Math.max(0.2, Math.cos(t) * 0.5));
-            dummy.rotation.set(a, b, t);
+            dummy.scale.setScalar(Math.max(0.1, Math.cos(t) * 0.25));
+            dummy.rotation.set(t, t * 0.5, t * 0.3);
             dummy.updateMatrix();
             mesh.current!.setMatrixAt(i, dummy.matrix);
         });
         mesh.current.instanceMatrix.needsUpdate = true;
     });
 
-    return (
-        <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
-            <dodecahedronGeometry args={[0.15, 0]} />
-            <meshStandardMaterial
-                color="#00d4ff"
-                emissive="#00d4ff"
-                emissiveIntensity={0.5}
-                transparent
-                opacity={0.6}
-            />
-        </instancedMesh>
+    const geo = useMemo(() => new THREE.DodecahedronGeometry(0.1, 0), []);
+    const mat = useMemo(
+        () =>
+            new THREE.MeshStandardMaterial({
+                color: "#00d4ff",
+                emissive: new THREE.Color("#00d4ff"),
+                emissiveIntensity: 0.5,
+                transparent: true,
+                opacity: 0.4,
+            }),
+        []
     );
-}
 
-function WireframeOrb() {
-    const meshRef = useRef<THREE.Mesh>(null);
-
-    useFrame(({ clock }) => {
-        if (meshRef.current) {
-            meshRef.current.rotation.x = clock.getElapsedTime() * 0.1;
-            meshRef.current.rotation.y = clock.getElapsedTime() * 0.15;
-        }
-    });
-
-    return (
-        <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1}>
-            <mesh ref={meshRef}>
-                <icosahedronGeometry args={[2.5, 1]} />
-                <meshStandardMaterial
-                    color="#7c3aed"
-                    wireframe
-                    transparent
-                    opacity={0.3}
-                />
-            </mesh>
-        </Float>
-    );
-}
-
-function FloatingCode() {
-    const groupRef = useRef<THREE.Group>(null);
-
-    useFrame(({ clock }) => {
-        if (groupRef.current) {
-            groupRef.current.rotation.y = clock.getElapsedTime() * 0.05;
-        }
-    });
-
-    const symbols = useMemo(() => {
-        const items = [];
-        for (let i = 0; i < 20; i++) {
-            const angle = (i / 20) * Math.PI * 2;
-            const radius = 5 + Math.random() * 3;
-            items.push({
-                position: [
-                    Math.cos(angle) * radius,
-                    (Math.random() - 0.5) * 6,
-                    Math.sin(angle) * radius,
-                ] as [number, number, number],
-                scale: 0.3 + Math.random() * 0.3,
-            });
-        }
-        return items;
-    }, []);
-
-    return (
-        <group ref={groupRef}>
-            {symbols.map((s, i) => (
-                <Float key={i} speed={1 + Math.random()} floatIntensity={0.5}>
-                    <mesh position={s.position}>
-                        <boxGeometry args={[s.scale, s.scale * 0.1, s.scale * 0.1]} />
-                        <meshStandardMaterial
-                            color={i % 2 === 0 ? "#00d4ff" : "#22c55e"}
-                            emissive={i % 2 === 0 ? "#00d4ff" : "#22c55e"}
-                            emissiveIntensity={0.4}
-                            transparent
-                            opacity={0.5}
-                        />
-                    </mesh>
-                </Float>
-            ))}
-        </group>
-    );
+    return <instancedMesh ref={mesh} args={[geo, mat, count]} />;
 }
 
 export default function HeroScene() {
     return (
         <div className="absolute inset-0 -z-10">
             <Canvas
-                camera={{ position: [0, 0, 12], fov: 60 }}
+                camera={{ position: [0, 0, 10], fov: 60 }}
                 dpr={[1, 1.5]}
                 gl={{ antialias: true, alpha: true }}
             >
-                <ambientLight intensity={0.2} />
-                <pointLight position={[10, 10, 10]} intensity={0.5} color="#00d4ff" />
-                <pointLight position={[-10, -10, -5]} intensity={0.3} color="#7c3aed" />
+                <ambientLight intensity={0.3} />
+                <pointLight position={[10, 10, 10]} intensity={0.8} color="#00d4ff" />
+                <pointLight position={[-10, -5, -5]} intensity={0.5} color="#7c3aed" />
+                <pointLight position={[0, 8, 5]} intensity={0.3} color="#ffffff" />
 
-                <WireframeOrb />
-                <FloatingParticles count={40} />
-                <FloatingCode />
+                <Environment preset="city" />
+
+                <RotatingMarco />
+                <OrbitingKeywords />
+                <FloatingParticles count={30} />
                 <Stars
                     radius={50}
                     depth={50}
-                    count={1000}
-                    factor={4}
+                    count={800}
+                    factor={3}
                     saturation={0}
                     fade
-                    speed={1}
+                    speed={0.5}
                 />
+
+                <EffectComposer>
+                    <Bloom
+                        intensity={0.4}
+                        luminanceThreshold={0.2}
+                    />
+                </EffectComposer>
             </Canvas>
         </div>
     );

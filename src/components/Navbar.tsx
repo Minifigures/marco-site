@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Magnetic } from "@/components/Magnetic";
 
 const navItems = [
     { href: "/", label: "HOME" },
@@ -14,6 +16,7 @@ const navItems = [
     { href: "/writing", label: "WRITING" },
     { href: "/presentations", label: "DECKS" },
     { href: "/achievements", label: "GALLERY" },
+    { href: "/3d", label: "3D ROOM" },
     { href: "/contact", label: "CONTACT" },
 ];
 
@@ -38,10 +41,11 @@ export default function Navbar() {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                        ? "bg-[var(--glass)] backdrop-blur-xl border-b border-[var(--glass-border)]"
-                        : "bg-transparent"
-                    }`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl ${
+                    scrolled
+                        ? "bg-black/50 border-b border-white/5 shadow-lg shadow-black/20"
+                        : "bg-black/20 border-b border-transparent"
+                }`}
             >
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     {/* Logo / Brand */}
@@ -53,33 +57,47 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Nav */}
-                    <div className="hidden lg:flex items-center gap-1">
+                    <div className="hidden lg:flex items-center gap-0.5">
                         {navItems.map((item) => (
-                            <Link
-                                key={item.href}
-                                href={item.href}
-                                className={`relative px-3 py-2 font-mono text-xs tracking-wider transition-all duration-200 rounded-lg ${pathname === item.href
-                                        ? "text-accent-cyan"
-                                        : "text-text-secondary hover:text-text-primary"
+                            <Magnetic key={item.href} strength={0.15}>
+                                <Link
+                                    href={item.href}
+                                    className={`relative px-2.5 py-2 font-mono text-[11px] tracking-wider transition-all duration-200 rounded-lg hover:scale-105 ${
+                                        pathname === item.href
+                                            ? "text-accent-cyan"
+                                            : "text-text-secondary hover:text-text-primary"
                                     }`}
-                            >
-                                <span className={`mr-1 ${pathname === item.href ? "text-accent-green" : "text-text-muted"}`}>
-                                    &gt;
-                                </span>
-                                {item.label}
-                                {pathname === item.href && (
-                                    <motion.div
-                                        layoutId="nav-indicator"
-                                        className="absolute bottom-0 left-2 right-2 h-[2px] bg-accent-cyan rounded-full"
-                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                    />
-                                )}
-                            </Link>
+                                >
+                                    <span
+                                        className={`mr-1 ${
+                                            pathname === item.href
+                                                ? "text-accent-green"
+                                                : "text-text-muted"
+                                        }`}
+                                    >
+                                        &gt;
+                                    </span>
+                                    {item.label}
+                                    {pathname === item.href && (
+                                        <motion.div
+                                            layoutId="nav-indicator"
+                                            className="absolute bottom-0 left-2 right-2 h-[2px] bg-accent-cyan rounded-full"
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 500,
+                                                damping: 30,
+                                            }}
+                                        />
+                                    )}
+                                </Link>
+                            </Magnetic>
                         ))}
                     </div>
 
-                    {/* Window Controls + Mobile Toggle */}
+                    {/* Right section: Theme Toggle + Window Controls + Mobile Toggle */}
                     <div className="flex items-center gap-3">
+                        <ThemeToggle />
+
                         {/* Window dots */}
                         <div className="hidden md:flex items-center gap-1.5">
                             <div className="w-3 h-3 rounded-full bg-accent-rose/80" />
@@ -102,7 +120,9 @@ export default function Navbar() {
                                 className="block w-5 h-[2px] bg-text-primary"
                             />
                             <motion.span
-                                animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                                animate={
+                                    isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }
+                                }
                                 className="block w-5 h-[2px] bg-text-primary"
                             />
                         </button>
@@ -133,12 +153,15 @@ export default function Navbar() {
                                 >
                                     <Link
                                         href={item.href}
-                                        className={`block py-3 font-mono text-2xl transition-colors ${pathname === item.href
+                                        className={`block py-3 font-mono text-2xl transition-colors ${
+                                            pathname === item.href
                                                 ? "text-accent-cyan"
                                                 : "text-text-secondary hover:text-text-primary"
-                                            }`}
+                                        }`}
                                     >
-                                        <span className="text-accent-green mr-3 text-lg">&gt;</span>
+                                        <span className="text-accent-green mr-3 text-lg">
+                                            &gt;
+                                        </span>
                                         {item.label}
                                     </Link>
                                 </motion.div>

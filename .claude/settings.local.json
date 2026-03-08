@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(powershell:*)",
-      "Bash(cmd:*)"
+      "Bash(cmd:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(cmd.exe:*)"
     ]
   }
 }
