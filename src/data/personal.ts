@@ -1,0 +1,53 @@
+export const personal = {
+    name: "Marco Anthony Ayuste",
+    firstName: "Marco",
+    title: "Software Engineer | AI/ML Builder | Full-Stack Developer",
+    roles: [
+        "Software Engineer",
+        "AI/ML Builder",
+        "Full-Stack Developer",
+        "Open Source Contributor",
+        "Hackathon Champion",
+    ],
+    bio: "I'm a software engineer at the University of Toronto Mississauga, passionate about building intelligent systems that solve real problems. From winning hackathons to shipping production AI tools, I thrive at the intersection of machine learning and full-stack development.",
+    shortBio: "Building intelligent systems at the intersection of ML and full-stack dev.",
+    location: "Mississauga, Ontario, Canada",
+    locationCoords: { lat: 43.5890, lng: -79.6441 },
+    email: "marco.ayuste@mail.utoronto.ca",
+    phone: "647-808-1592",
+    website: "marcoanthony.netlify.app",
+    languages: ["English", "French (Bilingual)", "Tagalog"],
+    interests: ["Weightlifting", "Gaming", "Anime", "Billiards", "Skiing", "Music"],
+    philosophy: [
+        "SHIP FAST, ITERATE FASTER",
+        "BUILD SYSTEMS THAT THINK",
+        "CODE WITH PURPOSE",
+        "EMBRACE THE GRIND",
+        "NEVER STOP LEARNING",
+    ],
+    education: {
+        school: "University of Toronto Mississauga",
+        degree: "Honours Bachelor of Arts",
+        majors: "Double Major in Communication, Culture & IT (CCIT) and Sociology",
+        graduation: "June 2027",
+        logo: "/images/utm-logo.png",
+    },
+    social: {
+        github: "https://github.com/Minifigures",
+        linkedin: "https://linkedin.com/in/marco-anthony-ayuste",
+        email: "mailto:marco.ayuste@mail.utoronto.ca",
+    },
+    stats: {
+        hackathonsWon: 1,
+        projectsBuilt: 10,
+        languagesSpoken: 3,
+        coffeeConsumed: "∞",
+    },
+};
+
+export const techStack = [
+    "React", "Next.js", "Node.js", "TypeScript", "JavaScript",
+    "Python", "SQL", "FastAPI", "LangGraph", "LangChain",
+    "Snowflake", "AWS", "GCP", "Docker", "CI/CD",
+    "Auth0", "Tailwind CSS", "Git",
+];
