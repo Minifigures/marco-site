@@ -55,7 +55,7 @@ export default function PresentationsPage() {
     const [selectedPres, setSelectedPres] = useState<Presentation | null>(null);
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="DECKS.PPT"
@@ -84,7 +84,7 @@ export default function PresentationsPage() {
                 </motion.div>
 
                 {/* Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {presentations.map((pres, i) => (
                         <motion.div
                             key={pres.id}

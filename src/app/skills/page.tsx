@@ -28,7 +28,7 @@ export default function SkillsPage() {
             : skills.filter((s) => s.category === activeCategory);
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="SKILLS.SH"
@@ -111,7 +111,7 @@ export default function SkillsPage() {
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
-                            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3"
+                            className="grid grid-cols-2 sm:grid-cols-3 gap-3"
                         >
                             {filtered.map((skill, i) => (
                                 <motion.div
@@ -156,7 +156,7 @@ export default function SkillsPage() {
 
                     {/* Telemetry Panel (desktop only) */}
                     <div className="hidden lg:block lg:col-span-1">
-                        <div className="sticky top-24 rounded-2xl border border-border-subtle bg-bg-card/80 backdrop-blur-sm p-6">
+                        <div className="sticky top-28 rounded-2xl border border-border-subtle bg-bg-card/80 backdrop-blur-sm p-6">
                             <div className="flex items-center gap-2 mb-5">
                                 <div className="w-2.5 h-2.5 rounded-full bg-accent-rose/80" />
                                 <div className="w-2.5 h-2.5 rounded-full bg-accent-amber/80" />

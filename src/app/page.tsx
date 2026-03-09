@@ -44,12 +44,12 @@ function ParallaxSymbols() {
     const y3 = useTransform(scrollY, [0, 1000], [0, -200]);
 
     const symbols = [
-        { char: "{}", x: "10%", top: "30%", motionY: y1, opacity: 0.08 },
-        { char: "</>", x: "85%", top: "20%", motionY: y2, opacity: 0.06 },
-        { char: "//", x: "75%", top: "60%", motionY: y3, opacity: 0.07 },
-        { char: "=>", x: "15%", top: "70%", motionY: y2, opacity: 0.05 },
-        { char: "&&", x: "90%", top: "45%", motionY: y1, opacity: 0.06 },
-        { char: "fn()", x: "5%", top: "50%", motionY: y3, opacity: 0.07 },
+        { char: "{}", x: "10%", top: "30%", motionY: y1, opacity: 0.14 },
+        { char: "</>", x: "85%", top: "20%", motionY: y2, opacity: 0.12 },
+        { char: "//", x: "75%", top: "60%", motionY: y3, opacity: 0.13 },
+        { char: "=>", x: "15%", top: "70%", motionY: y2, opacity: 0.11 },
+        { char: "&&", x: "90%", top: "45%", motionY: y1, opacity: 0.12 },
+        { char: "fn()", x: "5%", top: "50%", motionY: y3, opacity: 0.13 },
     ];
 
     return (
@@ -79,7 +79,7 @@ export default function HomePage() {
             <ParallaxSymbols />
 
             {/* ======================== HERO ======================== */}
-            <section className="relative h-screen flex items-center overflow-hidden">
+            <section className="relative h-screen flex items-center justify-center overflow-hidden -mt-24 pt-24">
                 <HeroScene />
 
                 {/* Grid overlay */}
@@ -208,9 +208,9 @@ export default function HomePage() {
                     <motion.div
                         animate={{ y: [0, 8, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
-                        className="w-5 h-8 border-2 border-text-muted rounded-full flex justify-center pt-1"
+                        className="w-5 h-8 border-2 border-text-secondary rounded-full flex justify-center pt-1"
                     >
-                        <div className="w-1 h-2 bg-text-muted rounded-full" />
+                        <div className="w-1 h-2 bg-text-secondary rounded-full" />
                     </motion.div>
                 </motion.div>
             </section>
@@ -221,13 +221,13 @@ export default function HomePage() {
             </div>
 
             {/* ======================== SECTION GRID ======================== */}
-            <section className="py-20 px-6">
+            <section className="py-32 px-8 md:px-12 lg:px-16">
                 <div className="max-w-[1400px] mx-auto">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="mb-10"
+                        className="mb-12"
                     >
                         <motion.p
                             variants={fadeUp}
@@ -250,14 +250,14 @@ export default function HomePage() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     >
                         {sectionLinks.map((section, i) => (
                             <motion.div key={section.href} variants={fadeUp} custom={i + 2}>
                                 <TiltCard>
                                     <Link
                                         href={section.href}
-                                        className="group block p-6 rounded-2xl bg-bg-card/80 backdrop-blur-sm border border-border-subtle hover:border-border-accent transition-all duration-300 hover:shadow-[var(--glow-cyan)] h-full relative overflow-hidden"
+                                        className="group block p-8 rounded-2xl bg-bg-card/80 backdrop-blur-sm border border-border-subtle hover:border-border-accent transition-all duration-300 hover:shadow-[var(--glow-cyan)] h-full relative overflow-hidden"
                                     >
                                         <span className="absolute top-3 right-4 font-mono text-[10px] text-text-muted/30 group-hover:text-accent-cyan/20 transition-colors">
                                             {String(i + 1).padStart(2, "0")}
@@ -281,7 +281,7 @@ export default function HomePage() {
             </section>
 
             {/* ======================== FOR RECRUITERS ======================== */}
-            <section className="py-20 px-6 bg-bg-secondary/30">
+            <section className="py-32 px-8 md:px-12 lg:px-16 bg-bg-secondary/30">
                 <div className="max-w-[1400px] mx-auto text-center">
                     <motion.div
                         initial="hidden"

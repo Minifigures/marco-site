@@ -80,7 +80,7 @@ export default function AchievementsPage() {
     const outerRef = useRef<HTMLDivElement>(null);
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="GALLERY.IMG"
@@ -99,7 +99,7 @@ export default function AchievementsPage() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
                     {highlights.map((item, i) => (
                         <motion.div
                             key={item.id}

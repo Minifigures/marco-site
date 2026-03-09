@@ -14,7 +14,7 @@ export function SectionHeader({ label, description }: SectionHeaderProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-12"
+            className="mt-8 mb-16"
         >
             <div className="flex items-baseline gap-3 mb-4">
                 <span className="text-accent-green font-mono text-xl md:text-2xl lg:text-3xl shrink-0">

@@ -23,7 +23,7 @@ export default function ProjectsPage() {
             : projects.filter((p) => p.category === activeCategory);
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="PROJECTS.DIR"
@@ -54,7 +54,7 @@ export default function ProjectsPage() {
                 </motion.div>
 
                 {/* Project Cards */}
-                <div className="space-y-5">
+                <div className="space-y-6">
                     <AnimatePresence mode="wait">
                         {filtered.map((project, i) => (
                             <motion.div

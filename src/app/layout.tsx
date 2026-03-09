@@ -10,7 +10,6 @@ import ScrollProgress from "@/components/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 import ClickRipple from "@/components/ClickRipple";
 import GrainOverlay from "@/components/GrainOverlay";
-import SystemStatus from "@/components/SystemStatus";
 import DynamicTitle from "@/components/DynamicTitle";
 import KonamiCode from "@/components/KonamiCode";
 
@@ -83,12 +82,11 @@ export default function RootLayout({
                 <ScrollProgress />
                 <CustomCursor />
                 <GrainOverlay />
-                <SystemStatus />
                 <ClickRipple />
                 <DynamicTitle />
                 <KonamiCode />
                 <Navbar />
-                <main className="min-h-screen pt-16">
+                <main className="min-h-screen pt-24">
                     <PageTransition>{children}</PageTransition>
                 </main>
                 <Footer />

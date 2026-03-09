@@ -226,6 +226,14 @@ body {
   padding-bottom: 12rem;
 }
 
+/* ======================== CUSTOM CURSOR ======================== */
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
 /* ======================== RESPONSIVE ======================== */
 @media (max-width: 768px) {
   html {

@@ -14,7 +14,7 @@ const typeColors: Record<string, string> = {
 
 export default function ExperiencePage() {
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="EXPERIENCE.LOG"
@@ -57,7 +57,7 @@ export default function ExperiencePage() {
                                 ease: [0.16, 1, 0.3, 1],
                                 delay: 0.1,
                             }}
-                            className={`relative pb-8 last:pb-0 pl-10 md:pl-0 ${
+                            className={`relative pb-12 last:pb-0 pl-10 md:pl-0 ${
                                 i % 2 === 0
                                     ? "md:pr-[calc(50%+24px)]"
                                     : "md:pl-[calc(50%+24px)]"

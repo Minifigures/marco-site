@@ -53,7 +53,7 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="CONTACT.SH"

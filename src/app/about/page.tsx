@@ -37,7 +37,7 @@ export default function AboutPage() {
     };
 
     return (
-        <div className="min-h-screen py-24 px-6">
+        <div className="min-h-screen py-32 px-8 md:px-12 lg:px-16">
             <div className="max-w-[1400px] mx-auto">
                 <SectionHeader
                     label="ABOUT.MD"
@@ -49,7 +49,7 @@ export default function AboutPage() {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                 >
                     {/* Location Card */}
                     <motion.div variants={fadeUp} custom={0}>
