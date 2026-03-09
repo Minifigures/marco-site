@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text, Float, Stars, Environment } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
@@ -8,24 +8,12 @@ import * as THREE from "three";
 
 function RotatingMarco() {
     const groupRef = useRef<THREE.Group>(null);
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
-    useEffect(() => {
-        const handleMouseMove = (e: MouseEvent) => {
-            setMouse({
-                x: (e.clientX / window.innerWidth - 0.5) * 2,
-                y: -(e.clientY / window.innerHeight - 0.5) * 2,
-            });
-        };
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
 
     useFrame(({ clock }) => {
         if (!groupRef.current) return;
         const t = clock.getElapsedTime();
-        groupRef.current.rotation.y = t * 0.15 + mouse.x * 0.3;
-        groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.05 + mouse.y * 0.15;
+        groupRef.current.rotation.y = t * 0.2;
+        groupRef.current.rotation.x = Math.sin(t * 0.1) * 0.05;
     });
 
     return (

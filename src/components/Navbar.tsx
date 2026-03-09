@@ -1,29 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Magnetic } from "@/components/Magnetic";
 
-const navItems = [
+const mainNavItems = [
     { href: "/", label: "HOME" },
-    { href: "/about", label: "ABOUT" },
     { href: "/projects", label: "PROJECTS" },
     { href: "/experience", label: "EXPERIENCE" },
     { href: "/skills", label: "SKILLS" },
+    { href: "/about", label: "ABOUT" },
+    { href: "/contact", label: "CONTACT" },
+    { href: "/resume", label: "RESUME" },
+];
+
+const moreNavItems = [
     { href: "/writing", label: "WRITING" },
     { href: "/presentations", label: "DECKS" },
     { href: "/achievements", label: "GALLERY" },
     { href: "/3d", label: "3D ROOM" },
-    { href: "/contact", label: "CONTACT" },
 ];
+
+const allNavItems = [...mainNavItems, ...moreNavItems];
 
 export default function Navbar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [moreOpen, setMoreOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const moreRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -33,7 +41,20 @@ export default function Navbar() {
 
     useEffect(() => {
         setIsOpen(false);
+        setMoreOpen(false);
     }, [pathname]);
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (moreRef.current && !moreRef.current.contains(e.target as Node)) {
+                setMoreOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    const isMoreActive = moreNavItems.some((item) => pathname === item.href);
 
     return (
         <>
@@ -47,41 +68,32 @@ export default function Navbar() {
                         : "bg-black/20 border-b border-transparent"
                 }`}
             >
-                <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-                    {/* Logo / Brand */}
-                    <Link href="/" className="flex items-center gap-3 group">
+                <div className="max-w-7xl mx-auto px-6 md:px-8 h-20 flex items-center">
+                    {/* Logo / Brand - Left */}
+                    <Link href="/" className="flex items-center gap-3 group shrink-0">
                         <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
                         <span className="font-mono text-sm font-semibold text-text-primary group-hover:text-accent-cyan transition-colors">
                             MARCO.DEV
                         </span>
                     </Link>
 
-                    {/* Desktop Nav */}
-                    <div className="hidden lg:flex items-center gap-1">
-                        {navItems.map((item) => (
+                    {/* Desktop Nav - Center */}
+                    <div className="hidden lg:flex items-center gap-1 flex-1 justify-center">
+                        {mainNavItems.map((item) => (
                             <Magnetic key={item.href} strength={0.15}>
                                 <Link
                                     href={item.href}
-                                    className={`relative px-3 py-2 font-mono text-xs tracking-wider transition-all duration-200 rounded-lg hover:scale-105 ${
+                                    className={`relative px-4 py-2 font-mono text-xs tracking-wider transition-all duration-200 rounded-lg hover:scale-105 ${
                                         pathname === item.href
-                                            ? "text-accent-cyan"
+                                            ? "text-accent-cyan font-bold"
                                             : "text-text-secondary hover:text-text-primary"
                                     }`}
                                 >
-                                    <span
-                                        className={`mr-1 ${
-                                            pathname === item.href
-                                                ? "text-accent-green"
-                                                : "text-text-muted"
-                                        }`}
-                                    >
-                                        &gt;
-                                    </span>
                                     {item.label}
                                     {pathname === item.href && (
                                         <motion.div
                                             layoutId="nav-indicator"
-                                            className="absolute bottom-0 left-2 right-2 h-[2px] bg-accent-cyan rounded-full"
+                                            className="absolute bottom-0 left-3 right-3 h-[2px] bg-accent-cyan rounded-full shadow-[0_0_8px_rgba(0,212,255,0.6)]"
                                             transition={{
                                                 type: "spring",
                                                 stiffness: 500,
@@ -92,18 +104,56 @@ export default function Navbar() {
                                 </Link>
                             </Magnetic>
                         ))}
+
+                        {/* More dropdown */}
+                        <div ref={moreRef} className="relative">
+                            <button
+                                onClick={() => setMoreOpen(!moreOpen)}
+                                className={`relative px-4 py-2 font-mono text-xs tracking-wider transition-all duration-200 rounded-lg hover:scale-105 ${
+                                    isMoreActive
+                                        ? "text-accent-cyan font-bold"
+                                        : "text-text-secondary hover:text-text-primary"
+                                }`}
+                            >
+                                MORE
+                                <span className="ml-1 text-[10px]">{moreOpen ? "\u25B2" : "\u25BC"}</span>
+                                {isMoreActive && (
+                                    <motion.div
+                                        className="absolute bottom-0 left-3 right-3 h-[2px] bg-accent-cyan rounded-full shadow-[0_0_8px_rgba(0,212,255,0.6)]"
+                                    />
+                                )}
+                            </button>
+                            <AnimatePresence>
+                                {moreOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -8 }}
+                                        transition={{ duration: 0.15 }}
+                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 py-2 px-1 rounded-xl bg-bg-secondary/95 backdrop-blur-xl border border-border-subtle shadow-xl shadow-black/30 min-w-[160px]"
+                                    >
+                                        {moreNavItems.map((item) => (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                className={`block px-4 py-2.5 font-mono text-xs tracking-wider rounded-lg transition-all ${
+                                                    pathname === item.href
+                                                        ? "text-accent-cyan bg-accent-cyan/10"
+                                                        : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+                                                }`}
+                                            >
+                                                {item.label}
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
 
-                    {/* Right section: Theme Toggle + Window Controls + Mobile Toggle */}
-                    <div className="flex items-center gap-3">
+                    {/* Right section: Theme Toggle + Mobile Toggle */}
+                    <div className="flex items-center gap-3 shrink-0 ml-auto lg:ml-0">
                         <ThemeToggle />
-
-                        {/* Window dots */}
-                        <div className="hidden md:flex items-center gap-1.5">
-                            <div className="w-3 h-3 rounded-full bg-accent-rose/80" />
-                            <div className="w-3 h-3 rounded-full bg-accent-amber/80" />
-                            <div className="w-3 h-3 rounded-full bg-accent-green/80" />
-                        </div>
 
                         {/* Mobile hamburger */}
                         <button
@@ -144,7 +194,7 @@ export default function Navbar() {
                             <div className="font-mono text-xs text-text-muted mb-6">
                                 {"/// NAVIGATION.SYS"}
                             </div>
-                            {navItems.map((item, i) => (
+                            {allNavItems.map((item, i) => (
                                 <motion.div
                                     key={item.href}
                                     initial={{ opacity: 0, x: 20 }}
@@ -166,9 +216,6 @@ export default function Navbar() {
                                     </Link>
                                 </motion.div>
                             ))}
-                            <div className="mt-8 font-mono text-xs text-text-muted">
-                                <span className="text-accent-green">●</span> SYSTEM STATUS: ONLINE
-                            </div>
                         </div>
                     </motion.div>
                 )}

@@ -23,11 +23,11 @@ export default function CustomCursor() {
         isTouchRef.current = "ontouchstart" in window || navigator.maxTouchPoints > 0;
         if (isTouchRef.current) return;
 
-        document.body.style.cursor = "none";
+        document.documentElement.classList.add("custom-cursor-active");
         setVisible(true);
 
         return () => {
-            document.body.style.cursor = "";
+            document.documentElement.classList.remove("custom-cursor-active");
         };
     }, []);
 
